@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habit Tracker Pro</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>My Habits</h1>
+            <button id="dark-mode-toggle">🌓 Dark Mode</button>
+        </header>
+
+        <section class="add-habit">
+            <input type="text" id="habit-input" placeholder="Nuevo hábito...">
+            <button onclick="addHabit()">Agregar</button>
+        </section>
+
+        <main class="dashboard">
+            <div id="habit-list" class="habit-grid">
+                </div>
+            
+            <div class="stats-container">
+                <canvas id="progressChart"></canvas>
+            </div>
+        </main>
+    </div>
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
