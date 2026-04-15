@@ -41,5 +41,15 @@ def add_habit():
     db.session.commit()
     return jsonify({"id": new_habit.id, "name": new_habit.name, "status": new_habit.status}), 201
 
+
+
+@app.route('/habits/<int:id>/complete', methods=['PUT'])
+def complete_habit(id):
+    habit = Habit.query.get_or_404(id)
+    habit.status = "completed"
+    db.session.commit()
+    return jsonify({"message": "Habit updated successfully"})
+
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
