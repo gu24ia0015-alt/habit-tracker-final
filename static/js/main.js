@@ -42,24 +42,28 @@ async function addHabit() {
 // Inicializar gráfica
 let myChart; // Variable global para poder destruir la gráfica vieja antes de crear la nueva
 
-function updateChart(habits) {
-    const ctx = document.getElementById('progressChart').getContext('2d');
-    
-    // Si ya existe una gráfica, la borramos para que no se encimen
-    if (myChart) { myChart.destroy(); }
+// En loadHabits, cambia donde dice habit.status por habit.streak:
+card.innerHTML = `
+    <h3>${habit.name}</h3>
+    <p>Racha: ${habit.streak} días</p>
+    <button onclick="updateStatus(${habit.id})">🔥 ¡Logrado!</button>
+`;
 
+// En updateChart, cambia la data:
+function updateChart(habits) {
+    // ... (mismo código de antes para borrar la racha vieja)
     myChart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: habits.map(h => h.name),
             datasets: [{
-                label: '% de Progreso',
-                data: habits.map(h => h.status === 'completed' ? 100 : 0),
+                label: 'Días Completados',
+                data: habits.map(h => h.streak), // Ahora usa el número real
                 backgroundColor: '#4CAF50'
             }]
         },
         options: {
-            scales: { y: { beginAtZero: true, max: 100 } }
+            scales: { y: { beginAtZero: true, suggestedMax: 30 } } // Max 30 días del mes
         }
     });
 }
