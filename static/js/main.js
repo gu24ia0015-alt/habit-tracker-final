@@ -56,3 +56,20 @@ function updateChart(habits) {
 }
 
 window.onload = loadHabits;
+
+
+
+
+async function updateStatus(id) {
+    await fetch(`/habits/${id}/complete`, {
+        method: 'PUT'
+    });
+    // Volvemos a cargar los hábitos para que se vea el cambio y se actualice la gráfica
+    loadHabits();
+}
+
+// Asegúrate de que la función generateCalendar se ejecute al cargar
+window.onload = () => {
+    loadHabits();
+    generateCalendar();
+};
