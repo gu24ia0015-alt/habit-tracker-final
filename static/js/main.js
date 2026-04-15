@@ -40,17 +40,26 @@ async function addHabit() {
 }
 
 // Inicializar gráfica
+let myChart; // Variable global para poder destruir la gráfica vieja antes de crear la nueva
+
 function updateChart(habits) {
     const ctx = document.getElementById('progressChart').getContext('2d');
-    new Chart(ctx, {
+    
+    // Si ya existe una gráfica, la borramos para que no se encimen
+    if (myChart) { myChart.destroy(); }
+
+    myChart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: habits.map(h => h.name),
             datasets: [{
-                label: 'Progreso de Hábitos',
+                label: '% de Progreso',
                 data: habits.map(h => h.status === 'completed' ? 100 : 0),
                 backgroundColor: '#4CAF50'
             }]
+        },
+        options: {
+            scales: { y: { beginAtZero: true, max: 100 } }
         }
     });
 }
