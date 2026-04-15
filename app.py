@@ -23,3 +23,18 @@ def get_habits():
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
+    
+    
+    
+    
+    @app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/habits', methods=['POST'])
+def add_habit():
+    data = request.json
+    new_habit = Habit(name=data['name'])
+    db.session.add(new_habit)
+    db.session.commit()
+    return jsonify({"message": "Habit created"}), 201
